@@ -1,0 +1,10 @@
+<resources>
+  <string name="app_name">Screen Recorder And Server</string>
+  <string name="record">Record</string>
+  <string name="recording_on">Recording On</string>
+  <string name="recording_off">Recording Off</string>
+  <string name="client">Client</string>
+  <string name="server_ip">Server IP</string>
+  <string name="client_on">Client On</string>
+  <string name="client_off">Client Off</string>
+</resources>

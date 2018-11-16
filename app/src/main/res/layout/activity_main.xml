@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+  <data>
+    <variable name="data" type="screen.record.and.serve.models.Data"/>
+  </data>
+  <RelativeLayout
+      xmlns:tools="http://schemas.android.com/tools"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      tools:context=".view.MainActivity">
+
+    <TextView
+        android:id="@+id/ip_address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@{data.ipAddress}"/>
+
+    <android.support.v7.widget.SwitchCompat
+        android:textOn="@string/recording_on"
+        android:textOff="@string/recording_off"
+        android:layout_below="@id/ip_address"
+        android:id="@+id/record_toggle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/record"/>
+
+    <EditText
+        android:id="@+id/server_ip"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/server_ip"
+        android:layout_below="@id/record_toggle"/>
+
+    <android.support.v7.widget.SwitchCompat
+        android:id="@+id/client_switch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textOn="@string/client_on"
+        android:textOff="@string/client_off"
+        android:layout_below="@id/server_ip"
+        android:text="@string/client"/>
+
+    <VideoView
+        android:id="@+id/player_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/client_switch"/>
+
+  </RelativeLayout>
+</layout>

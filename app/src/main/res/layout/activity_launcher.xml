@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+  <ScrollView
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:fillViewport="true"
+      tools:context=".view.LauncherActivity">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+      <Button
+          android:layout_width="match_parent"
+          android:id="@+id/spy_droid"
+          android:layout_height="wrap_content"
+          android:text="Spy Droid"
+      />
+      <Button
+          android:layout_width="match_parent"
+          android:id="@+id/main_act"
+          android:layout_height="wrap_content"
+          android:text="Main Activity"
+      />
+      <Button
+          android:layout_width="match_parent"
+          android:id="@+id/exo_player"
+          android:layout_height="wrap_content"
+          android:text="Exo Player"
+      />
+    </LinearLayout>
+  </ScrollView>
+</layout>
