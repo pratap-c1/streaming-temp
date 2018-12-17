@@ -17,7 +17,6 @@ import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
 import android.util.Base64;
 import android.util.Log;
-import android.widget.Toast;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -40,7 +39,7 @@ import net.majorkernelpanic.streaming.rtsp.UriParser;
 import screen.record.and.serve.R;
 
 public class RtspServer2 extends Service {
-  public final static String TAG = "RtspServer";
+  public final static String TAG = RtspServer2.class.getCanonicalName();
 
   /** The server name that will appear in responses. */
   public static String SERVER_NAME = "MajorKernelPanic RTSP Server";
@@ -217,30 +216,26 @@ public class RtspServer2 extends Service {
         switch (action) {
           case ACTION_START_FOREGROUND_SERVICE:
             startForegroundService();
-            Toast.makeText(getApplicationContext(), "Foreground service is started.",
-                Toast.LENGTH_LONG).show();
+            Log.d(TAG, "RtspServer2 service is started.");
             break;
           case ACTION_STOP_FOREGROUND_SERVICE:
             stopForegroundService();
-            Toast.makeText(getApplicationContext(), "Foreground service is stopped.",
-                Toast.LENGTH_LONG).show();
+            Log.d(TAG, "RtspServer2 service is stopped.");
             break;
           case ACTION_PLAY:
-            Toast.makeText(getApplicationContext(), "You click Play button.", Toast.LENGTH_LONG)
-                .show();
+            Log.d(TAG, "ACTION_PLAY");
             break;
           case ACTION_PAUSE:
-            Toast.makeText(getApplicationContext(), "You click Pause button.", Toast.LENGTH_LONG)
-                .show();
+            Log.d(TAG, "ACTION_PAUSE");
             break;
         }
       }
     }
-    return START_STICKY;
+    return super.onStartCommand(intent, flags, startId);
   }
 
   @Override public void onCreate() {
-
+    Log.d(TAG, "onCreate");
     // Let's restore the state of the service
     mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
     mPort = Integer.parseInt(mSharedPreferences.getString(KEY_PORT, String.valueOf(mPort)));
@@ -257,22 +252,17 @@ public class RtspServer2 extends Service {
   }
 
   private SharedPreferences.OnSharedPreferenceChangeListener mOnSharedPreferenceChangeListener =
-      new SharedPreferences.OnSharedPreferenceChangeListener() {
-        @Override
-        public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-
-          if (key.equals(KEY_PORT)) {
-            int port =
-                Integer.parseInt(sharedPreferences.getString(KEY_PORT, String.valueOf(mPort)));
-            if (port != mPort) {
-              mPort = port;
-              mRestart = true;
-              start();
-            }
-          } else if (key.equals(KEY_ENABLED)) {
-            mEnabled = sharedPreferences.getBoolean(KEY_ENABLED, mEnabled);
+      (sharedPreferences, key) -> {
+        if (key.equals(KEY_PORT)) {
+          int port = Integer.parseInt(sharedPreferences.getString(KEY_PORT, String.valueOf(mPort)));
+          if (port != mPort) {
+            mPort = port;
+            mRestart = true;
             start();
           }
+        } else if (key.equals(KEY_ENABLED)) {
+          mEnabled = sharedPreferences.getBoolean(KEY_ENABLED, mEnabled);
+          start();
         }
       };
 
@@ -739,7 +729,6 @@ public class RtspServer2 extends Service {
     }
   }
 
-
   private static final String TAG_FOREGROUND_SERVICE = "RTSP server 2";
 
   public static final String ACTION_START_FOREGROUND_SERVICE = "ACTION_START_FOREGROUND_SERVICE";
@@ -750,8 +739,7 @@ public class RtspServer2 extends Service {
 
   public static final String ACTION_PLAY = "ACTION_PLAY";
 
-  private static final String NOTIFICATION_CHANNEL_ID =
-      RtspServer2.class.getCanonicalName();
+  private static final String NOTIFICATION_CHANNEL_ID = RtspServer2.class.getCanonicalName();
 
   private void startForegroundService() {
     Log.d(TAG_FOREGROUND_SERVICE, "Start foreground service.");
@@ -796,7 +784,7 @@ public class RtspServer2 extends Service {
     builder.setFullScreenIntent(pendingIntent, true);
 
     // Add Play button intent in notification.
-    Intent playIntent = new Intent(this, MyForegroundService.class);
+    Intent playIntent = new Intent(this, RtspServer2.class);
     playIntent.setAction(ACTION_PLAY);
     PendingIntent pendingPlayIntent = PendingIntent.getService(this, 0, playIntent, 0);
     NotificationCompat.Action playAction =
@@ -804,7 +792,7 @@ public class RtspServer2 extends Service {
     builder.addAction(playAction);
 
     // Add Pause button intent in notification.
-    Intent pauseIntent = new Intent(this, MyForegroundService.class);
+    Intent pauseIntent = new Intent(this, NanoHTTPDServerService.class);
     pauseIntent.setAction(ACTION_PAUSE);
     PendingIntent pendingPrevIntent = PendingIntent.getService(this, 0, pauseIntent, 0);
     NotificationCompat.Action prevAction =

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="screen.record.and.serve">
 
   <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
@@ -8,6 +9,12 @@
   <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
   <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
   <uses-permission android:name="android.permission.CAMERA"/>
+  <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS"/>
+  <permission android:name="android.permission.CONFIGURE_WIFI_DISPLAY"
+      android:protectionLevel="normal" />
+  <permission android:name="android.permission.CONTROL_WIFI_DISPLAY"
+      android:protectionLevel="normal" />
+
 
   <application
       android:name=".App"
@@ -23,9 +30,10 @@
     <activity android:name=".view.SpyDroidStreamingActivity">
     </activity>
 
-    <service android:name=".services.MyForegroundService"/>
+    <service android:name=".services.NanoHTTPDServerService"/>
     <service android:name="net.majorkernelpanic.streaming.rtsp.RtspServer"/>
     <service android:name=".services.RtspServer2"/>
+    <service android:name=".services.MediaRecorderService"/>
 
     <activity android:name=".view.LauncherActivity">
       <intent-filter>
@@ -37,6 +45,12 @@
     <activity android:name=".view.ExoActivity">
     </activity>
     <activity android:name=".view.TrialActivity">
+    </activity>
+    <activity android:name=".view.RtspActivity">
+    </activity>
+    <activity android:name=".view.RTSPClientActivity">
+    </activity>
+    <activity android:name=".view.WebServerActivity">
     </activity>
   </application>
 

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+  <data>
+    <variable name="activity" type="screen.record.and.serve.view.WebServerActivity"/>
+    <variable name="data" type="screen.record.and.serve.models.Data"/>
+  </data>
+  <LinearLayout
+      android:orientation="vertical"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      tools:context=".view.WebServerActivity">
+    <TextView
+        android:id="@+id/server_ip"
+        android:layout_width="match_parent"
+        android:textSize="20sp"
+        android:gravity="center"
+        android:layout_height="wrap_content"
+        android:text="@{data.ipAddress}"
+    />
+    <Button
+        android:id="@+id/start_server_service"
+        android:text="Start Nano HTTP Server Service"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="@{(b) -> activity.startServerService()}"
+    />
+    <Button
+        android:id="@+id/stop_server_service"
+        android:text="Stop Nano HTTP Server"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="@{(b) -> activity.stopServerService()}"
+    />
+  </LinearLayout>
+</layout>

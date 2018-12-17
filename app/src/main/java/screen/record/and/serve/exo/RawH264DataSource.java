@@ -8,11 +8,16 @@ import com.google.android.exoplayer2.upstream.BaseDataSource;
 import com.google.android.exoplayer2.upstream.DataSpec;
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.Socket;
 
 public class RawH264DataSource extends BaseDataSource {
   private static final String TAG = RawH264DataSource.class.getCanonicalName();
+  private Uri uri;
+  private BufferedReader in;
+  private InputStream is;
+
   /**
    * Creates base data source.
    *
@@ -22,22 +27,27 @@ public class RawH264DataSource extends BaseDataSource {
     super(isNetwork);
   }
 
-  private Uri uri;
-
   public RawH264DataSource() {
     super(true);
   }
 
-  private BufferedReader in;
+  public RawH264DataSource(InputStream is) {
+    super(true);
+    this.is = is;
+  }
 
   @Override public long open(DataSpec dataSpec) throws IOException {
     Log.d(TAG, "C: Connecting...");
     Log.d(TAG, "C: server host = " + dataSpec.uri.getHost());
     Log.d(TAG, "C: server port = " + dataSpec.uri.getPort());
-    Socket socket = new Socket("192.168.200.2", 9005);
-    Log.d(TAG, "C: is connected to server, " + socket.isConnected());
-    this.uri = dataSpec.uri;
-    in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+    if (is != null) {
+      in = new BufferedReader(new InputStreamReader(is));
+    } else {
+      Socket socket = new Socket("192.168.200.2", 9005);
+      Log.d(TAG, "C: is connected to server, " + socket.isConnected());
+      this.uri = dataSpec.uri;
+      in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+    }
     transferStarted(dataSpec);
     return C.LENGTH_UNSET;
   }

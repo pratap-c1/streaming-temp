@@ -53,6 +53,10 @@ public class AndroidWebServer extends NanoHTTPD {
         e.printStackTrace();
         return null;
       }
+    } else if (ihttpSession.getUri().startsWith(UrlPaths.PATH_LIVE_VIDEO_STREAM_3)) {
+      return new SequentialVideoHandler();
+    } else if (ihttpSession.getUri().equals(UrlPaths.PATH_LATEST_VIDEO_ID)) {
+      return new LatestVideoIdHandler();
     } else if (ihttpSession.getUri().equals(UrlPaths.PATH_TEST)) {
       return new TestHandler();
     } else {

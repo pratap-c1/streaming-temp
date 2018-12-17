@@ -48,7 +48,7 @@ public class Recorder {
     File file = new File(mVideoDir, LIVE_STREAM);
     //mMediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
     mMediaRecorder.setVideoSource(MediaRecorder.VideoSource.SURFACE);
-    mMediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_2_TS);
+    mMediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
     ParcelFileDescriptor[] parcelFileDescriptors = ParcelFileDescriptor.createPipe();
     ParcelFileDescriptor parcelRead = new ParcelFileDescriptor(parcelFileDescriptors[0]);
     ParcelFileDescriptor parcelWrite = new ParcelFileDescriptor(parcelFileDescriptors[1]);

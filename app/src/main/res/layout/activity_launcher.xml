@@ -28,6 +28,36 @@
           android:layout_height="wrap_content"
           android:text="Exo Player"
       />
+      <Button
+          android:layout_width="match_parent"
+          android:id="@+id/trial"
+          android:layout_height="wrap_content"
+          android:text="TrialActivity"
+      />
+      <Button
+          android:layout_width="match_parent"
+          android:id="@+id/rtsp"
+          android:layout_height="wrap_content"
+          android:text="RTSPActivity"
+      />
+      <Button
+          android:layout_width="match_parent"
+          android:id="@+id/rtsp_client"
+          android:layout_height="wrap_content"
+          android:text="RTSPClientActivity"
+      />
+      <Button
+          android:layout_width="match_parent"
+          android:id="@+id/web_server"
+          android:layout_height="wrap_content"
+          android:text="Web server"
+      />
+      <Button
+          android:layout_width="match_parent"
+          android:id="@+id/media_projection_demo"
+          android:layout_height="wrap_content"
+          android:text="Media Projection Demo"
+      />
     </LinearLayout>
   </ScrollView>
 </layout>

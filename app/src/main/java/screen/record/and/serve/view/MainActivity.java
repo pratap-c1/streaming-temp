@@ -24,7 +24,7 @@ import screen.record.and.serve.models.Data;
 import screen.record.and.serve.permissions.PermissionToRecord;
 import screen.record.and.serve.server.Recorder;
 import screen.record.and.serve.server.ServerThread;
-import screen.record.and.serve.services.MyForegroundService;
+import screen.record.and.serve.services.NanoHTTPDServerService;
 
 public class MainActivity extends AppCompatActivity {
   private static final int REQUEST_CODE = 2323;
@@ -51,13 +51,12 @@ public class MainActivity extends AppCompatActivity {
 
     binding.recordToggle.setChecked(mRunning);
     binding.recordToggle.setOnCheckedChangeListener((compoundButton, isChecked) -> {
-      Intent serviceIntent = new Intent(MainActivity.this, MyForegroundService.class);
+      Intent serviceIntent = new Intent(MainActivity.this, NanoHTTPDServerService.class);
       if (isChecked) {
         // start recording
-        serviceIntent.setAction(MyForegroundService.ACTION_START_FOREGROUND_SERVICE);
         captureRequest();
       } else {
-        serviceIntent.setAction(MyForegroundService.ACTION_STOP_FOREGROUND_SERVICE);
+        serviceIntent.setAction(NanoHTTPDServerService.ACTION_STOP_FOREGROUND_SERVICE);
         stopCapture();
       }
       startService(serviceIntent);
